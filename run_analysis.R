@@ -62,7 +62,13 @@ melt(subset_activities, c("Activity", "Subject_id"), variable.name = "Measure_Ax
 tidy_data %>% group_by(Activity, Subject_id, Measure_Axis) %>% 
   summarize(average = mean(Value)) -> tidy_data
 
+## Alternative way of finding averages
+subset_activities %>% group_by(Activity, Subject_id) %>% 
+  summarize_all(funs(mean)) -> tidy_data2
+
 write.table(tidy_data, "Tidy_data.txt", row.names = F)
+
+
 
 
 
