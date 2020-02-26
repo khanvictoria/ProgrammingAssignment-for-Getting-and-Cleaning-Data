@@ -4,6 +4,7 @@ library(dplyr)
 library(magrittr)
 library(data.table)
 library(stringr)
+library(reshape2)
 
 # Merges the training and the test sets to create one data set.
 ## Creating a test dataset by merging three datasets from the folder "test"
@@ -40,6 +41,27 @@ Train = do.call(cbind, list(subject_test, Y_test, X_test))
 Activities = rbind(Test, Train)
 Activities[, c(1,2,grep("[Mm]ean|[Ss]td", names(Activities)))] -> subset_activities
 
+# 4. Appropriately labels the data set with descriptive variable names.
 
+subset_activities %>% rename(Subject_id = V1, Activity = V1.1) -> subset_activities
+
+# 3. Uses descriptive activity names to name the activities in the data set
+subset_activities$Activity = factor(subset_activities$Activity, 
+                                    labels = c("WALKING", "WALKING_UPSTAIRS",
+                                               "WALKING_DOWNSTAIRS", "SITTING",
+                                               "STANDING", "LAYING")) 
+
+table(subset_activities$Activity)
+
+# 5. From the data set in step 4, creates a second, independent tidy data set 
+# with the average of each variable for each activity and each subject.
+
+melt(subset_activities, c("Activity", "Subject_id"), variable.name = "Measure_Axis",
+     value.name = "Value") -> tidy_data
+
+tidy_data %>% group_by(Activity, Subject_id, Measure_Axis) %>% 
+  summarize(average = mean(Value)) -> tidy_data
+
+write.table(tidy_data, "Tidy_data.txt")
 
 
