@@ -67,8 +67,8 @@ subset_activities %>% group_by(Activity, Subject_id) %>%
   summarize_all(funs(mean)) -> tidy_data2
 
 write.table(tidy_data, "Tidy_data.txt", row.names = F)
-
-
+write.table(tidy_data2, "Tidy_data2.txt", row.names = F)
+  
 
 
 
