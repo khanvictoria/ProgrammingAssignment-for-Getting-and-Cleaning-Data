@@ -74,7 +74,7 @@ output:
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; overflow-x: scroll; width:900px; "><table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
-   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> Activity_names </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> Var_names </th>
   </tr>
  </thead>
 <tbody>
